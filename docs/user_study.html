@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Privacy-Preserving Visual Localization with Event Cameras</title>
+
+    <meta name="description" content="Privacy-Preserving Visual Localization with Event Cameras">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2>
+                    User Study
+                </h2>
+                <br>
+
+                <h4>
+                    <b>A Quick Note About the Questionnaire</b>
+                </h4>
+
+                <p class="text-justify">
+                    Modern AR/VR applications frequently request the client to take photos & videos of their surroundings for immersive experiences rendered on top of the everyday world. This means that once AR/VR services become ubiquitous, people can be unknowingly captured and their visual data can be stored on servers of AR/VR service providers.
+                </p>
+
+                <p class="text-justify">
+                    In this questionnaire we aim to examine how people feel about being captured with cameras of complete strangers, and having the visual information stored on data centers of AR/VR services.
+                </p>
+
+                <br>
+
+                <h4>
+                    <b>Part 1: Preliminary Assessment</b>
+                </h4>
+                <p class="text-justify">
+                    On a scale of 1 to 5, please rate the feeling of insecurity for being captured with a camera in the following scenarios. 1 means that you are completely okay with the visual information being captured, 5 means that you are seriously concerned.
+                    <ol>
+                        <li>You are captured on CCTV. A small group of people (security guards, administrators, etc.) may regularly view the recorded content.</li>
+                        <li>You are captured on a stranger’s camera in a tourist spot which will be privately owned by that individual.</li>
+                        <li>You are captured on a friend’s camera in a tourist spot which will be privately owned by him/her.</li>
+                        <li>You are captured on a friend’s camera in a tourist spot which will be shared with other friends via SNS apps such as Instagram.</li>
+                        <li>You are captured on a YouTuber’s camera which will be publicly posted.</li>
+                    </ol>    
+                </p>
+                <br>
+
+                <h4>
+                    <b>Part 2: Event Cameras Introduction</b>
+                </h4>
+                <p class="text-justify">
+                    Event cameras are neuromorphic sensors that encode visual information as a sequence of events. In contrast to conventional frame-based cameras that output absolute brightness intensities, event cameras respond to brightness changes. The following figure shows a visual description of how event cameras function compared to conventional cameras. Notice how brightness changes are encoded as 'streams' in the spatio-temporal domain.
+                </p>
+                <p style="text-align:center;">
+                <img src="img/event_camera.jpeg" height="200px">
+                </p>
+                <br>
+
+                <h4>
+                    <b>Part 3: Event Camera Security Assessment - 1</b>
+                </h4>
+                <p class="text-justify">
+                    Here is a side-by-side visualization of frame-based cameras and event cameras. Note that event streams generated between each image frame are accumulated to create the image-like formation on the right.
+                </p>
+                <p style="text-align:center;">
+                    <img src="img/part_1.png" height="200px">
+                </p>    
+                <p class="text-justify">
+                    On a scale of 1 to 5, please rate how insecure you would feel being captured with an event camera. Assume you are captured by a complete stranger. The information will be stored on both the stranger's device and the data centers of AR/VR service providers. When making the rating, please focus on how the facial details are shared.
+                </p>
+                <br>
+
+                <h4>
+                    <b>Part 3: Event Camera Security Assessment - 2</b>
+                </h4>
+                <p class="text-justify">
+                    Recent advances in deep learning enable recovering images from event camera data. Here is a side-by-side visualization of events and frames reconstructed solely using event camera data. Note that while the reconstruction is quite noisy, it is nevertheless possible to recover the original visual content only using events.
+                </p>
+                <p style="text-align:center;">
+                    <img src="img/part_2.png" height="200px">
+                </p>    
+                <p class="text-justify">
+                    Now knowing that events can be used for image reconstruction, please rate how insecure you would feel being captured with an event camera. Assume you are captured by a complete stranger. The information will be stored on both the stranger's device and the data centers of AR/VR service providers. When making the rating, please focus on how the facial details are shared.
+                </p>
+                <br>
+
+                <h4>
+                    <b>Part 3: Event Camera Security Assessment - 3</b>
+                </h4>
+                <p class="text-justify">
+                    Here we apply a simple pre-processing procedure on event data. A side-by-side visualization of frames reconstructed from events with/without pre-processing is shown below (left: no pre-processing vs right: preprocessing).
+                </p>
+                <p style="text-align:center;">
+                    <img src="img/part_3.png" height="200px">
+                </p>    
+                <p class="text-justify">
+                    Please rate how insecure you would feel being captured with an event camera. This time, all event camera data are pre-processed before being transmitted or saved on the device memory. Assume you are captured by a complete stranger. The information will be stored on both the stranger's device and the data centers of AR/VR service providers. When making the rating, please focus on how the facial details are shared.
+                </p>
+
+                <p class="text-justify">
+                    Also, leave any additional comments regarding the pre-processing procedure. Do you feel it is sufficiently hiding sensitive facial details? What additional information do you think should be hidden?
+                </p>
+                <br>
+
+                <h4>
+                    <b>Part 3: Event Camera Security Assessment - 4</b>
+                </h4>
+                <p class="text-justify">
+                    Here we apply another pre-processing procedure on event data. A side-by-side visualization of frames reconstructed from events with/without pre-processing is shown below (left: no pre-processing vs right: preprocessing).
+                </p>
+                <p style="text-align:center;">
+                    <img src="img/part_4.png" height="200px">
+                </p>
+                <p class="text-justify">
+                    Please rate how insecure you would feel being captured with an event camera. This time, all event camera data are pre-processed using the new procedure before being transmitted or saved on the device memory. Assume you are captured by a complete stranger. The information will be stored on both the stranger's device and the data centers of AR/VR service providers. When making the rating, please focus on how the facial details are shared.
+                </p>
+                <p class="text-justify">
+                    Also, leave any additional comments regarding the pre-processing procedure. Do you feel it is sufficiently hiding sensitive facial details? What additional information do you think should be hidden?
+                </p>
+
+            </div>
+        </div>
+
+    </body>
+</html>
