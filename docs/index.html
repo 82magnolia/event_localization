@@ -50,11 +50,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://yichengwu.github.io/">
-                          Yicheng Wu <sup>2</sup>
-                        </a>
-                    </li>
-                    <li>
                         <a href="https://www.linkedin.com/in/ramzi-zahreddine-42a09b87/">
                           Ramzi Zahreddine <sup>2</sup>
                         </a>
@@ -135,14 +130,16 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-                    We present a robust, privacy-preserving visual localization algorithm using event cameras.
-                    While event cameras can potentially make robust localization due to high dynamic range and small motion blur, the sensors exhibit large domain gaps making it difficult to directly apply conventional image-based localization algorithms.
-                    To mitigate the gap, we propose applying event-to-image conversion prior to localization which leads to stable localization.
-                    In the privacy perspective, event cameras  capture only a fraction of visual information compared to normal cameras, and thus can naturally hide sensitive visual details.
-                    To further enhance the privacy protection in our event-based pipeline, we introduce privacy protection at two levels, namely sensor and network level.
-                    Sensor level protection aims at hiding facial details with lightweight filtering while network level protection targets hiding the entire user's view in private scene applications using a novel neural network inference pipeline. 
-                    Both levels of protection involve light-weight computation and incur only a small performance loss.
-                    We thus project our method to serve as a building block for practical location-based services using event cameras.                     
+                    We consider the problem of client-server localization, where edge device users communicate visual data with the service provider for locating oneself against a pre-built 3D map.
+                    This localization paradigm is a crucial component for location-based services in AR/VR or mobile applications, as it is not trivial to store large-scale 3D maps and process fast localization on resource-limited edge devices.
+                    Nevertheless, conventional client-server localization systems possess numerous challenges in computational efficiency, robustness, and privacy-preservation during data transmission.
+                    Our work aims to jointly solve these challenges with a localization pipeline based on event cameras.
+                    By using event cameras, our system consumes low energy and maintains small memory bandwidth.
+                    Then during localization, we propose applying event-to-image conversion and leverage mature image-based localization, which achieves robustness even in low-light or fast-moving scenes.
+                    To further enhance privacy protection, we introduce privacy protection techniques at two levels.
+                    Network level protection aims to hide the entire user's view in private scenes using a novel splitted inference approach, while sensor level protection aims to hide sensitive user details such as faces with light-weight filtering.
+                    Both methods involve small client-side computation and localization performance loss, while significantly mitigating the feeling of insecurity as revealed in our user study.
+                    We thus project our method to serve as a building block for practical location-based services using event cameras.
                 </p>
             </div>
         </div>
@@ -173,7 +170,7 @@
                     User Study (<a href="user_study.html" style="color:tomato">Full Version</a>)
                 </h3>
                 <p class="text-justify">
-                    As mentioned in Section 5.2 in the main paper, we conduct a user study to evaluate how the general public feels about our privacy protection algorithms. For now, we <b>only share the questions along with a few exemplary images</b> but during the user study we showed each user <strong>videos</strong> of multiple privacy protection results for every question.
+                    As mentioned in Section VII-A in the main paper, we conduct a user study to evaluate how the general public feels about our privacy protection algorithms. For now, we <b>only share the questions along with a few exemplary images</b> but during the user study we showed each user <strong>videos</strong> of multiple privacy protection results for every question.
                 </p>
             </div>
         </div>
