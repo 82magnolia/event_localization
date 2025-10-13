@@ -167,11 +167,159 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
+                    Privacy Concerns in Client-Server Localization
+                </h3>
+                <img src="./img/privacy_concerns.png" width="90%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    In <b>client-server localization</b>, the user shares visual information with the service provider to find his or her pose in 3D space.
+                    Here, the service provider performs the costly computation during localization and returns the result to the user.
+                    During this process, privacy concerns arise for both users and observed people.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Event Cameras for Client-Server Localization
+                </h3>
+                <img src="./img/events.gif" width="90%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                Event cameras are neuromorphic sensors that encode visual information as a sequence of events. In contrast
+                to conventional frame-based cameras that output absolute brightness intensities, event cameras respond to
+                brightness changes. The following figure shows a visual description of how event cameras function compared
+                to conventional cameras. Notice how brightness changes are encoded as 'streams' in the spatio-temporal
+                domain.
+                </p>
+                <img src="./img/event_cam_benefits.png" width="90%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                Event camera consume low power, and can capture visual information in challenging conditions such as fast camera motion or low lighting.
+                These properties make the sensors amenable for client-server localization.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Localization Pipeline Overview
+                </h3>
+                <img src="./img/event_loc.png" width="100%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    To localize event streams against conventional 3D maps built from images, our localization pipeline first converts events to images.
+                    Here events are first packaged as <b>voxels</b> and passed through a CNN that reconstructs images from event voxels.
+                    Then, the converted images are localized against the 3D map using off-the-shelf localization pipelines such as <a href="https://github.com/cvg/Hierarchical-Localization">Hierarchical Localization</a>.
+                </p>
+                <img src="./img/event_split.png" width="90%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    As event-to-image conversion is costly to compute on-device, our localization pipeline splits the computation between the user and service provider.
+                    Specifically, the user computes the relatively light-weight frontal and latter layers of the conversion network, and the intermediate computation is conducted on the server.
+                    While this reduces the computation for the user, it leads to <b>privacy breaches</b> as the service provider could decode the intermediate activations to obtain reconstructions.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Privacy Protection Overview
+                </h3>
+                <img src="./img/privacy_overview.png" width="80%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    We propose network-level and sensor-level privacy protection to alleviate privacy concerns.
+                    <b>Network-level</b> privacy protection targets localization in private scenes (e.g. apartments, corporate offices), where the user would want to completely hide what they are looking at.
+                    <b>Sensor-level</b> privacy protection targets a broader range of applications and focuses on hiding non-structural details such as facial regions with small additional computation.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Network-Level Privacy Protection
+                </h3>
+                <img src="./img/network_level.png" width="80%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    In network-level privacy protection, the user first re-trains a private copy of the event-to-image conversion network, and only shares the intermediate layers with the service provider.
+                    This network learns to reconstruct images from noise-infused events.
+                    As a result, the service provider cannot decode the intermediate activations.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Sensor-Level Privacy Protection
+                </h3>
+                <p class="test-justify">
+                    Sensor-level privacy protection consists of two light-weight filtering methods to hide regions potentially containing faces.
+                </p>
+                <img src="./img/median_filtering.png" width="80%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    <b>Median filtering</b> preserves event voxel entries with temporally consistent intensity or motion.
+                </p>
+                <img src="./img/max_reflection_filtering.png" width="80%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    <b>Maximum-reflection filtering</b> attenuates event voxel regions that are curvy, which often correspond to facial landmarks.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
                     User Study (<a href="user_study.html" style="color:tomato">Full Version</a>)
                 </h3>
                 <p class="text-justify">
-                    As mentioned in Section VII-A in the main paper, we conduct a user study to evaluate how the general public feels about our privacy protection algorithms. For now, we <b>only share the questions along with a few exemplary images</b> but during the user study we showed each user <strong>videos</strong> of multiple privacy protection results for every question.
+                    We conduct a user study to evaluate how the general public feels about our privacy protection algorithms. For now, we <b>only share the questions along with a few exemplary images</b> but during the user study we showed each user <strong>videos</strong> of multiple privacy protection results for every question.
                 </p>
+                <img src="./img/user_study_results.png" width="90%" style="display: block; margin: auto" />
+                <p class="text-justify">
+                    Given the insecurity scores ranging between 1 and 5 set based on normal intensity cameras, 
+                    we query on event cameras by sequentially showing raw events, event-to-image reconstructions, and privacy protection results.
+                    Both network-level and sensor-level protection lead to smaller insecurity scores.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Qualitative Results: Network-Level Privacy Protection
+                </h3>
+                <div class="text-center">
+                    <!--
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://www.youtube.com/embed/GTE7QqeytGg" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                    -->
+                    <video poster="" id="soulcity" autoplay controls muted loop width="100%">
+                        <source src="video/network_level.mp4"
+                                type="video/mp4">
+                      </video>
+            
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Qualitative Results: Sensor-Level Privacy Protection
+                </h3>
+                <div class="text-center">
+                    <!--
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://www.youtube.com/embed/GTE7QqeytGg" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                    -->
+                    <video poster="" id="soulcity" autoplay controls muted loop width="100%">
+                        <source src="video/sensor_level.mp4"
+                                type="video/mp4">
+                      </video>
+            
+                </div>
             </div>
         </div>
 
@@ -182,15 +330,16 @@
                 </h3>
                 <div class="form-group col-md-12 col-md-offset-0">
                     <textarea id="bibtex" class="form-control" readonly rows="7">
-@misc{https://doi.org/10.48550/arxiv.2212.03177,
-doi = {10.48550/ARXIV.2212.03177},
-url = {https://arxiv.org/abs/2212.03177},
-author = {Kim, Junho and Kim, Young Min and Wu, Yicheng and Zahreddine, Ramzi and Welge, Weston A. and Krishnan, Gurunandan and Ma, Sizhuo and Wang, Jian},
-keywords = {Computer Vision and Pattern Recognition (cs.CV), FOS: Computer and information sciences, FOS: Computer and information sciences},
-title = {Privacy-Preserving Visual Localization with Event Cameras},
-publisher = {arXiv},
-year = {2022},
-copyright = {Creative Commons Attribution 4.0 International}}
+@ARTICLE{11175560,
+  author={Kim, Junho and Kim, Young Min and Zahreddine, Ramzi and Welge, Weston A. and Krishnan, Gurunandan and Ma, Sizhuo and Wang, Jian},
+  journal={IEEE Transactions on Image Processing}, 
+  title={Privacy-Preserving Visual Localization With Event Cameras}, 
+  year={2025},
+  volume={34},
+  number={},
+  pages={6215-6230},
+  keywords={Location awareness;Cameras;Privacy;Protection;Visualization;Three-dimensional displays;Neural networks;Streaming media;Event detection;Image reconstruction;Event cameras;visual localization;camera pose estimation;privacy-preserving computer vision},
+  doi={10.1109/TIP.2025.3607640}}
                     </textarea>
                 </div>
             </div>
