@@ -73,7 +73,6 @@ python process_ev_to_img.py --config configs/ev_humans.ini --event_path ./data/e
 ```
 
 ## Citation
-## Citation
 If you find this repository useful, please cite
 
 ```bibtex
