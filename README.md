@@ -1,5 +1,5 @@
 # Privacy-Preserving Visual Localization with Event Cameras
-Official repository of **Privacy-Preserving Visual Localization with Event Cameras (IEEE TIP 2025)** [[Paper]](https://ieeexplore.ieee.org/document/11175560) [[Video]](https://www.youtube.com/watch?v=kk0q690NMXc).
+Official repository of **Privacy-Preserving Visual Localization with Event Cameras (IEEE TIP 2025)** [[Paper]](https://ieeexplore.ieee.org/document/11175560) [[Video]](https://www.youtube.com/watch?v=kk0q690NMXc) [[Project Page]](https://82magnolia.github.io/event_localization/).
 
 ## Installation
 Run the following commands.
