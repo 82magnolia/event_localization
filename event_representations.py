@@ -1,7 +1,35 @@
 import numpy as np
 import torch
-from ev_sim import normalize_ev_acc
 from torch_scatter import scatter_max
+
+
+def normalize_ev_acc(ev_acc, mode='all_pos'):
+    # ev_acc is assumed to be a tensor of shape (B, 1, H, W)
+    B, _, H, W = ev_acc.shape
+    flat_ev_acc = ev_acc.reshape(B, -1)
+    qt_range = [0.99, 0.999, 0.9999]
+    clip_val = torch.zeros(B)
+    for q in qt_range:
+        new_clip_val = torch.maximum(torch.quantile(flat_ev_acc, q, dim=-1).abs(), torch.quantile(flat_ev_acc, 1 - q, dim=-1).abs())  # (B, )
+        clip_val[clip_val == 0] = new_clip_val[clip_val == 0]  # Replace clip values with new nonzero ones
+
+    clip_val = clip_val.reshape(B, 1, 1, 1)
+
+    # Clip regions over each clip value
+    ev_acc[ev_acc > clip_val] = clip_val.repeat(1, 1, H, W)[ev_acc > clip_val]
+    ev_acc[ev_acc < -clip_val] = -clip_val.repeat(1, 1, H, W)[ev_acc < -clip_val]
+
+    # Normalize with respect to clip ranges
+    non_zero_clip = clip_val.reshape(B) != 0  # (B, )
+
+    if mode == 'all_pos':  # Make all values to be within [0, 1]
+        ev_acc[non_zero_clip] = (ev_acc[non_zero_clip] + clip_val[non_zero_clip]) / (2 * clip_val[non_zero_clip])
+    elif mode == 'zero_hold':  # Normalize with zero at center and in range [-1, 1]
+        ev_acc[non_zero_clip] = ev_acc[non_zero_clip] / clip_val[non_zero_clip]
+    elif mode == 'half_hold':  # Normalize with zero at center and in range [-0.5, 0.5]
+        ev_acc[non_zero_clip] = ev_acc[non_zero_clip] / (2 * clip_val[non_zero_clip])
+
+    return ev_acc
 
 
 # Each representation returns a (H, W) image representation

@@ -1,0 +1,17 @@
+torch==1.10.1+cu102
+torchvision==0.11.2+cu102
+numpy
+open3d
+scipy
+matplotlib
+tensorflow-cpu
+tqdm
+pyyaml
+opencv-python
+pandas
+Pillow
+kornia
+numba
+setuptools==59.5.0
+lpips
+aedat

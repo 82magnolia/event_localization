@@ -13,8 +13,6 @@ from PIL import Image
 import numpy as np
 from e2vid import E2VID
 from e2vid.utils.voxelgrid import VoxelGrid
-from privacy_utils import PrivacyTester, ReconTester, apply_voxel_weight
-from train_voxel_regression import UpsampleConvLayer, FrontalInverter, UNet
 
 
 warnings.filterwarnings("ignore", category=UserWarning) 
@@ -202,33 +200,12 @@ def localize(cfg: NamedTuple, log_dir: str):
 
             query_reconstructor.image_reconstructor.last_states_for_each_channel = {'grayscale': None}  # re-initialize state
 
-            if voxel_weight:
-                grid_list = []
-                for roll_idx in range(max_roll_idx):
-                    query_events_grid, _ = grid.events_to_voxel_grid(query_events[count_window * roll_idx: count_window * (roll_idx + 1), [2, 0, 1, 3]])
-                    query_events_grid = grid.normalize_voxel(query_events_grid)
-                    grid_list.append(query_events_grid)
-
-                total_grid = np.concatenate(grid_list, axis=0)
-                time_gap = query_events[-1, 2] - query_events[0, 2]
-                weighted_total_grid = apply_voxel_weight(total_grid, getattr(cfg, 'med_kernel_size', 5), getattr(cfg, 'reflect_kernel_size', 23), 
-                    getattr(cfg, 'mean_filtering', True), getattr(cfg, 'mean_kernel_size', 5), getattr(cfg, 'mask_method', 'med'), 
-                    getattr(cfg, 'mask_const', 1.0), getattr(cfg, 'dilation_size', 3))
-                block_size = weighted_total_grid.shape[0] // max_roll_idx
-                
-                for roll_idx in range(max_roll_idx):
-                    input_voxel = weighted_total_grid[roll_idx * block_size: (roll_idx + 1) * block_size]
-                    if noise_watermark:
-                        input_voxel += additive_noise
-                    query_recon_img = query_reconstructor(input_voxel)
-
-            else:
-                for roll_idx in range(max_roll_idx):
-                    query_events_grid, _ = grid.events_to_voxel_grid(query_events[count_window * roll_idx: count_window * (roll_idx + 1), [2, 0, 1, 3]])
-                    query_events_grid = grid.normalize_voxel(query_events_grid)
-                    if noise_watermark:
-                        query_events_grid += additive_noise
-                    query_recon_img = query_reconstructor(query_events_grid)
+            for roll_idx in range(max_roll_idx):
+                query_events_grid, _ = grid.events_to_voxel_grid(query_events[count_window * roll_idx: count_window * (roll_idx + 1), [2, 0, 1, 3]])
+                query_events_grid = grid.normalize_voxel(query_events_grid)
+                if noise_watermark:
+                    query_events_grid += additive_noise
+                query_recon_img = query_reconstructor(query_events_grid)
 
             start_time = time.time()
 

@@ -1,6 +1,5 @@
 # Privacy-Preserving Visual Localization with Event Cameras
-Official repository of **[Privacy-Preserving Visual Localization with Event Cameras (arXiv 2022)](https://arxiv.org/abs/2212.03177)**.
-We will make the code and dataset available soon!
+Official repository of **Privacy-Preserving Visual Localization with Event Cameras (IEEE TIP 2025)** [[Paper]](https://ieeexplore.ieee.org/document/11175560) [[Video]](https://www.youtube.com/watch?v=kk0q690NMXc).
 
 ## Installation
 Run the following commands.
@@ -66,3 +65,26 @@ Run the following command to obtain localization results on EvRooms.
 ```
 
 ## Event-to-Image Conversion on EvHumans
+Run the following command to run sensor-level protection on EvHumans.
+The command below will run event-to-image conversions on the `cabinet_human` sequence.
+Go to `./log/filter_results/` to see the reconstructions. 
+```
+python process_ev_to_img.py --config configs/ev_humans.ini --event_path ./data/ev_humans/cabinet_human/events.dat --data_root ./log/filter_results/ --joint_filter
+```
+
+## Citation
+## Citation
+If you find this repository useful, please cite
+
+```bibtex
+@ARTICLE{11175560,
+  author={Kim, Junho and Kim, Young Min and Zahreddine, Ramzi and Welge, Weston A. and Krishnan, Gurunandan and Ma, Sizhuo and Wang, Jian},
+  journal={IEEE Transactions on Image Processing}, 
+  title={Privacy-Preserving Visual Localization With Event Cameras}, 
+  year={2025},
+  volume={34},
+  number={},
+  pages={6215-6230},
+  keywords={Location awareness;Cameras;Privacy;Protection;Visualization;Three-dimensional displays;Neural networks;Streaming media;Event detection;Image reconstruction;Event cameras;visual localization;camera pose estimation;privacy-preserving computer vision},
+  doi={10.1109/TIP.2025.3607640}}
+```
